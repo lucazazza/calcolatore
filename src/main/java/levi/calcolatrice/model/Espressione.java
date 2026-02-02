@@ -19,26 +19,6 @@ public class Espressione {
         rpnExpression = new ArrayList<>();
     }
 
-    public Frazione getRisultato() {
-        return risultato;
-    }
-
-    public ArrayList getTokensList() {
-        return tokensList;
-    }
-
-    public String getInputExpr() {
-        return inputExpr;
-    }
-
-    public ArrayList getValidTokensList() {
-        return validTokensList;
-    }
-
-    public ArrayList getRpnExpression() {
-        return rpnExpression;
-    }
-
     public void scanner() throws ExpressionException {
         long numero = 0;
         int contaParentesi = 0;

@@ -1,5 +1,4 @@
-/* calcolatrice.css — "GASS" neon theme modificato: viola/verde -> arancione
-   Salva nello stesso package/folder dell'FXML e collega con stylesheets="@calcolatrice.css" */
+
 
 .vbox {
     -fx-background-color: linear-gradient(to bottom right, #050014, #0b0f1f 60%, #071124);
