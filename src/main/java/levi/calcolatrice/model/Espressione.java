@@ -66,6 +66,8 @@ public class Espressione {
                                     "L'espressione contiene parentesi non bilanciate in posizione " + posizione
                             );
                     }
+                    inLetturaNumero = false;
+                    break;
                 case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
                     if (inLetturaNumero) {
                         numero = 10 * numero + Integer.valueOf(Character.toString(c));
