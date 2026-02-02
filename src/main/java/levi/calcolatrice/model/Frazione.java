@@ -30,6 +30,9 @@ public class Frazione {
     }
     @Override
     public String toString(){
+        if (denominatore == 1){
+            return Long.toString(numeratore);
+        }
         return "(" + numeratore + "/" + denominatore + ")";
     }
 

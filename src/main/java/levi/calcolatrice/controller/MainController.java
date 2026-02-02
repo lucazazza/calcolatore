@@ -61,7 +61,9 @@ public class MainController {
 
     public void risolvi() throws ExpressionException {
         Espressione e = new Espressione(operazione.getText());
-        e.risolvi();
+        operazione.setText(e.calcRPN().toString());
+        dati.clear();
+        dati.add(operazione.getText());
     }
 
     public void indietro(){
@@ -70,9 +72,8 @@ public class MainController {
     }
 
     public void cancella(){
-        String s = dati.getFirst();
-        dati.clear();
-        dati.add(s);
+        dati.removeAll(dati);
+        dati.add("");
         aggiorna();
     }
 
