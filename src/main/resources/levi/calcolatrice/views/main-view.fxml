@@ -5,77 +5,78 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" onKeyPressed="#inputTastiera" spacing="20.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="levi.calcolatrice.controller.MainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+<VBox alignment="CENTER" onKeyPressed="#inputTastiera" spacing="24.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="levi.calcolatrice.controller.MainController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
    <children>
-      <Label fx:id="operazione" alignment="CENTER_RIGHT" prefWidth="200.0" style="-fx-border-color: black;">
+      <Label fx:id="operazione" alignment="CENTER_RIGHT" prefWidth="320.0" prefHeight="90.0" style="-fx-border-color: black; -fx-padding: 12px;">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="60.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0" spacing="10.0">
          <children>
-            <Button fx:id="pow" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="^" />
-            <Button fx:id="parAperta" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="(" />
-            <Button fx:id="parChiusa" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text=")" />
-            <Button fx:id="back" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#indietro" prefHeight="50.0" prefWidth="50.0" text="&lt;-" />
+            <Button fx:id="pow" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="^" style="-fx-font-size:20px;" />
+            <Button fx:id="parAperta" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="(" style="-fx-font-size:20px;" />
+            <Button fx:id="parChiusa" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text=")" style="-fx-font-size:20px;" />
+            <Button fx:id="back" mnemonicParsing="false" onAction="#indietro" prefHeight="70.0" prefWidth="70.0" text="&lt;-" style="-fx-font-size:18px;" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="30.0" layoutY="30.0" prefHeight="50.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0" spacing="10.0">
          <children>
-            <Button fx:id="b7" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="7" textAlignment="CENTER" />
-            <Button fx:id="b8" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="8" />
-            <Button fx:id="b9" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="9" />
-            <Button fx:id="molt" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="x">
+            <Button fx:id="b7" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="7" style="-fx-font-size:20px;" />
+            <Button fx:id="b8" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="8" style="-fx-font-size:20px;" />
+            <Button fx:id="b9" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="9" style="-fx-font-size:20px;" />
+            <Button fx:id="molt" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="x" style="-fx-font-size:20px;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0" spacing="10.0">
+         <children>
+            <Button fx:id="b4" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="4" style="-fx-font-size:20px;" />
+            <Button fx:id="b5" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="5" style="-fx-font-size:20px;" />
+            <Button fx:id="b6" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="6" style="-fx-font-size:20px;" />
+            <Button fx:id="sott" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="-" style="-fx-font-size:22px;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0" spacing="10.0">
+         <children>
+            <Button fx:id="b1" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="1" style="-fx-font-size:20px;" />
+            <Button fx:id="b2" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="2" style="-fx-font-size:20px;" />
+            <Button fx:id="b3" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="3" style="-fx-font-size:20px;" />
+            <Button fx:id="addiz" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text="+" style="-fx-font-size:22px;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0" spacing="10.0">
+         <children>
+            <Button fx:id="b0" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="140.0" text="0" style="-fx-font-size:20px;" />
+            <Button fx:id="eq" mnemonicParsing="false" onAction="#risolvi" prefHeight="70.0" prefWidth="70.0" text="=" style="-fx-font-size:22px;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="div" mnemonicParsing="false" onAction="#modifica" prefHeight="70.0" prefWidth="70.0" text=":" style="-fx-font-size:18px;">
                <font>
                   <Font size="16.0" />
-               </font></Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="30.0" layoutY="100.0" prefHeight="50.0" prefWidth="200.0">
-         <children>
-            <Button fx:id="b4" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="4" />
-            <Button fx:id="b5" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="5" />
-            <Button fx:id="b6" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="6" />
-            <Button fx:id="sott" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="-">
-               <font>
-                  <Font size="20.0" />
                </font>
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="30.0" layoutY="170.0" prefHeight="50.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="260.0">
          <children>
-            <Button fx:id="b1" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="1" />
-            <Button fx:id="b2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="2" />
-            <Button fx:id="b3" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="3" />
-            <Button fx:id="addiz" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text="+">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-         <children>
-            <Button fx:id="b0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="100.0" text="0" />
-            <Button fx:id="eq" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#risolvi" prefHeight="50.0" prefWidth="50.0" text="=">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="div" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifica" prefHeight="50.0" prefWidth="50.0" text=":">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-         <children>
-            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#cancella" prefHeight="50.0" prefWidth="200.0" text="Cancella" />
+            <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#cancella" prefHeight="70.0" prefWidth="260.0" text="Cancella" style="-fx-font-size:20px;" />
          </children>
       </HBox>
    </children>
