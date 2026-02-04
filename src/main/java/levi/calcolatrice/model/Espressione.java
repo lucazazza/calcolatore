@@ -26,7 +26,7 @@ public class Espressione {
         boolean inLetturaNumero = false;
         for (char c : inputExpr.toCharArray()) {
             switch (c) {
-                case '+', '-', 'x', ':', '^':
+                case '+', '-', '*', '/', '^':
                     if (inLetturaNumero)
                         tokensList.add(new Frazione(numero, 1));
                     tokensList.add(Operatore.getOperatore(c));
@@ -78,29 +78,34 @@ public class Espressione {
     }
 
     public void parser() throws ExpressionException {
-        scanner();
         /*
             stato = 0: in attesa di espressione
             stato = 1: letto Operatore
             stato = 2: letto Operando (Frazione)
             stato = 3: letta Parentesi Chiusa
          */
+        scanner();
         int stato = 0;
         for (Object token : tokensList) {
             switch (stato) {
                 case 0:
                     /*-- stato 0 ----- in attesa di espressione -------------------------------*/
                     if (token instanceof Operatore) {
-                        throw new ExpressionException(
-                                "Espressione non valida",
-                                token + " non può seguire un operatore");
-
-
+                        if(!token.equals("+") && !token.equals("-")){
+                            throw new ExpressionException(
+                                    "Espressione non valida",
+                                    token + " non può essere inserito per primo");
+                        }
+                        validTokensList.add(token);
+                        stato = 1;
                     } else if (token instanceof Parentesi) {
-                        throw new ExpressionException(
-                                "Espressione non valida",
-                                token + " deve seguire una parentesi aperta");
-
+                        if(token.equals(Parentesi.PARENTESI_CHIUSA)){
+                            throw new ExpressionException(
+                                    "Espressione non valida",
+                                    token + " deve seguir una parentesi aperta");
+                        }
+                        validTokensList.add(token);
+                        stato=0;
                     } else if (token instanceof Frazione) {
                         validTokensList.add(token);
                         stato = 2;
@@ -117,7 +122,7 @@ public class Espressione {
                         validTokensList.add(token);
                         stato = 2;
                     } else if (token instanceof Parentesi) {
-                        if (token.equals(Parentesi.PARENTESI_CHIUSA)) {
+                        if(token.equals(Parentesi.PARENTESI_CHIUSA)){
                             throw new ExpressionException(
                                     "Espressione non valida",
                                     token + " non può seguire un operatore");
@@ -136,7 +141,7 @@ public class Espressione {
                                 "Espressione non valida",
                                 token + " non può seguire un operando");
                     } else if (token instanceof Parentesi) {
-                        if (token.equals(Parentesi.PARENTESI_APERTA)) {
+                        if(token.equals(Parentesi.PARENTESI_APERTA)){
                             throw new ExpressionException(
                                     "Espressione non valida",
                                     token + " non può seguire un operatore");
@@ -157,7 +162,7 @@ public class Espressione {
                     } else if (token instanceof Parentesi) {
                         throw new ExpressionException(
                                 "Espressione non valida",
-                                token + " non può seguire una parentesi");
+                                token + " non può seguire un'altra parentesi");
                     }
             }
         }
@@ -167,6 +172,7 @@ public class Espressione {
                     "Espressione non valida",
                     "L'espressione termina non può terminare con " + tokensList.getLast());
     }
+
 
 
     public Frazione calcRPN() throws ExpressionException {
@@ -249,7 +255,7 @@ public class Espressione {
             if (operatori.peek() instanceof Operatore) {
                 queue.add(operatori.pop());
             } else {
-                throw new ExpressionException("syntax error", "L'espressione contiene parentesi non bilanciate in posizione ");
+                throw new ExpressionException("syntax error", "L'espressione contiene parentesi non bilanciate in posizione");
             }
 
         }

@@ -4,8 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import levi.calcolatrice.model.Espressione;
 import levi.calcolatrice.model.ExpressionException;
+import levi.calcolatrice.model.Operatore;
+import levi.calcolatrice.model.Parentesi;
 
 import java.util.ArrayList;
 
@@ -46,7 +50,7 @@ public class MainController {
     public void modifica(ActionEvent actionEvent) {
         String n = ((Button)actionEvent.getSource()).getText();
         switch(dati.getLast()){
-            case "+", "-", "x", ":", "", "(":
+            case "+", "-", "*", "/", "", "(":
                 if(n.equals("+") || n.equals("-") || n.equals("x") || n.equals(":") || n.equals("^") || n.equals(")")){
                     break;
                 }
@@ -90,4 +94,70 @@ public class MainController {
         }
 
     }
+
+    public void inputTastiera(KeyEvent keyEvent) throws ExpressionException {
+        KeyCode c = keyEvent.getCode();
+        System.out.println(c);
+
+        if(keyEvent.isShiftDown() && c == KeyCode.DIGIT7){
+            dati.add(Operatore.DIV.toString());
+            aggiorna();
+            return;
+        }
+        if(keyEvent.isShiftDown() && c == KeyCode.DIGIT8){
+            dati.add(Parentesi.PARENTESI_APERTA.toString());
+            aggiorna();
+            return;
+        }
+        if(keyEvent.isShiftDown() && c == KeyCode.DIGIT9){
+            dati.add(Parentesi.PARENTESI_CHIUSA.toString());
+            aggiorna();
+            return;
+        }
+        if(keyEvent.isShiftDown() && c == KeyCode.PLUS){
+            dati.add(Operatore.MULT.toString());
+            aggiorna();
+            return;
+        }
+        if(keyEvent.isShiftDown() && keyEvent.getText().equals("ì")){
+            dati.add(Operatore.POW.toString());
+            aggiorna();
+            return;
+        }
+        if(keyEvent.isShiftDown() && keyEvent.getText().equals("0")){
+            risolvi();
+            return;
+        }
+
+        switch(c){
+            case DIGIT0, DIGIT1, DIGIT2, DIGIT3, DIGIT4, DIGIT5, DIGIT6, DIGIT7, DIGIT8, DIGIT9,
+                 NUMPAD0,NUMPAD1,NUMPAD2,NUMPAD3,NUMPAD4,NUMPAD5,NUMPAD6,NUMPAD7,NUMPAD8,NUMPAD9:
+                dati.add(keyEvent.getText());
+                aggiorna();
+                break;
+            case MINUS, SUBTRACT:
+                dati.add(Operatore.SUB.toString());
+                aggiorna();
+                break;
+            case PLUS, ADD:
+                dati.add(Operatore.ADD.toString());
+                aggiorna();
+                break;
+            case DIVIDE:
+                dati.add(Operatore.DIV.toString());
+                aggiorna();
+                break;
+            case MULTIPLY:
+                dati.add(Operatore.MULT.toString());
+                aggiorna();
+                break;
+            case BACK_SPACE:
+                indietro();
+                break;
+            default:
+                break;
+        }
+
+    }
+
 }
