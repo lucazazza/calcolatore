@@ -6,10 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import levi.calcolatrice.model.Espressione;
-import levi.calcolatrice.model.ExpressionException;
-import levi.calcolatrice.model.Operatore;
-import levi.calcolatrice.model.Parentesi;
+import levi.calcolatrice.model.*;
 
 import java.util.ArrayList;
 
@@ -40,7 +37,7 @@ public class MainController {
 
 
     private ArrayList<String> dati = new ArrayList<>();
-
+    Frazione risultato;
     public void initialize(){
         dati.add("");
         operazione.setText("");
@@ -63,11 +60,20 @@ public class MainController {
         aggiorna();
     }
 
-    public void risolvi() throws ExpressionException {
-        Espressione e = new Espressione(operazione.getText());
-        operazione.setText(e.calcRPN().toString());
-        dati.clear();
-        dati.add(operazione.getText());
+    public void risolvi(){
+        String s = "";
+        for(int i = 0; i < dati.size(); i++){
+            s += dati.get(i);
+        }
+        Espressione e = new Espressione(s);
+        try{
+            risultato = e.risultato();
+            operazione.setText(risultato.toString());
+            dati.clear();
+            dati.add(operazione.getText());
+        }catch(ExpressionException|ArithmeticException ex){
+            operazione.setText(ex.getMessage());
+        }
     }
 
     public void indietro(){

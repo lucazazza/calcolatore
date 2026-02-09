@@ -9,6 +9,7 @@ package levi.calcolatrice.model;
 public class Frazione {
     private long numeratore;
     private long denominatore;
+    static boolean dec = false;
 
     public Frazione(long numeratore, long denominatore) throws ArithmeticException{
         if(denominatore == 0){
@@ -22,85 +23,77 @@ public class Frazione {
             this.numeratore = 0;
             this.denominatore = 1;
         }else{
-            long mcd = massimoComunDenominatore(numeratore, denominatore);
+            long mcd = massimoComuneDivisore(numeratore, denominatore);
             this.numeratore = numeratore / mcd;
             this.denominatore = denominatore / mcd;
         }
-
+        dec = false;
     }
+
+    public static void cambiaRisultato() {
+        dec = !dec;
+    }
+
     @Override
     public String toString(){
-        if (denominatore == 1){
+        if(denominatore == 1){
             return Long.toString(numeratore);
         }
-        return  numeratore + "/" + denominatore;
-    }
-
-    private static long massimoComunDenominatore(long a, long b) {
-        long a1 = Math.abs(a);
-        long b1 = Math.abs(b);
-        while (a1 != b1) {
-            if (a1 > b1) {
-                a1 -= b1;
-            } else if (b1 > a1) {
-                b1 -= a1;
-            }
+        if(dec){
+            return Double.toString((double) numeratore / denominatore);
         }
-        return a1;
+        return numeratore + "/" + denominatore;
     }
 
-    private Frazione opposto() {
-        return new Frazione(numeratore * -1, denominatore);
+    private static long massimoComuneDivisore(long a1, long b1){
+        long a = Math.abs(a1);
+        long b = Math.abs(b1);
+        while(a != b){
+            if(a > b)
+                a -= b;
+            else
+                b -= a;
+        }
+        return a;
     }
 
-    private static long minimoComuneMultiplo(long a, long b) {
-        long a1 = Math.abs(a);
-        long b1 = Math.abs(b);
-        return (a1 * b1) / massimoComunDenominatore(a1, b1);
+    private static long minimoComuneMultiplo(long n1, long n2){
+        long mcd = massimoComuneDivisore(n1, n2);
+        return (n1*n2)/mcd;
     }
 
+    /**
+     * Moltiplicazione
+     * @param f secondo operando
+     * @return this * f
+     */
     public Frazione mult(Frazione f){
         return new Frazione(this.numeratore * f.numeratore, this.denominatore * f.denominatore);
     }
+
     public Frazione div(Frazione f){
         return this.mult(new Frazione(f.denominatore, f.numeratore));
     }
+
     public Frazione add(Frazione f){
         long num, den;
-        den = massimoComunDenominatore(this.denominatore, f.denominatore);
+        den = minimoComuneMultiplo(this.denominatore, f.denominatore);
         num = den / this.denominatore * this.numeratore + den / f.denominatore * f.numeratore;
         return new Frazione(num, den);
     }
 
-    public Frazione sum(Frazione f) {
-        long mcm = minimoComuneMultiplo(denominatore, f.denominatore);
-        long num = numeratore * (mcm / denominatore) + f.numeratore * (mcm / f.denominatore);
-        return new Frazione(num, mcm);
+    public Frazione sott(Frazione f){
+        long num, den;
+        den = minimoComuneMultiplo(this.denominatore, f.denominatore);
+        num = den / this.denominatore * this.numeratore - den / f.denominatore * f.numeratore;
+        return new Frazione(num, den);
     }
 
-    public Frazione pow(Frazione exp) {
-        Frazione f = null;
-        if (exp.numeratore == 0)
-            if (this.numeratore == 0)
-                throw new ArithmeticException("0^0 non definito");
-            else
-                f = new Frazione(1, 1);
-        else if (exp.denominatore != 1) {
-            throw new ArithmeticException("Non implementato calcolo di potenza con esponente non intero.");
-        } else if (exp.numeratore > 0)
-            f = new Frazione((long) Math.pow(this.numeratore, exp.numeratore),
-                    (long) Math.pow(this.denominatore, exp.numeratore));
-        else
-            f = new Frazione((long) Math.pow(this.denominatore, -exp.numeratore),
-                    (long) Math.pow(this.numeratore, -exp.numeratore));
-        return f;
-    }
-    private static Frazione opposto(Frazione f) {
-        return new Frazione(-1 * f.numeratore, f.denominatore);
-    }
-
-    public Frazione sub(Frazione f) {
-        return this.sum(opposto(f));
+    public Frazione pow(Frazione f){
+        long num, den;
+        den = (long) Math.pow(this.denominatore, f.numeratore);
+        num = (long) Math.pow(this.numeratore, f.numeratore);
+        return new Frazione(num, den);
     }
 
 
