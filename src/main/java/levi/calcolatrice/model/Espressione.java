@@ -85,7 +85,7 @@ public class Espressione {
                     inLetturaNumero = true;
                     break;
                 default:
-                    throw new ExpressionException("Syntax Error");
+                    throw new ExpressionException("errore nella lettura dello scanner");
 
             }
         }
@@ -111,7 +111,7 @@ public class Espressione {
                     /*-- stato 0 ----- in attesa di espressione -------------------------------*/
                     if (token instanceof Operatore) {
                         if (operatoreUsato){
-                            throw new ExpressionException("Espressione non valida");
+                            throw new ExpressionException("errore nel parser");
                         }
                         switch ((Operatore)token){
                             case ADD:
@@ -123,14 +123,14 @@ public class Espressione {
                                 validTokensList.add(Operatore.MULT);
                                 break;
                             default:
-                                throw new ExpressionException("Espressione non valida");
+                                throw new ExpressionException("errore nel parser");
 
                         }
                         stato = 1;
                     } else if (token instanceof Parentesi) {
                         operatoreUsato = false;
                         if(token.equals(Parentesi.PARENTESI_CHIUSA)){
-                            throw new ExpressionException("Espressione non valida");
+                            throw new ExpressionException("errore nel parser");
                         }else{
                             validTokensList.add(token);
                         }
@@ -151,7 +151,7 @@ public class Espressione {
                                 validTokensList.add(Operatore.MULT);
                             }
                         }
-                        throw new ExpressionException("Espressione non valida");
+                        throw new ExpressionException("errore nel parser");
                     } else if (token instanceof Frazione) {
                         validTokensList.add(token);
                         stato = 2;
@@ -159,7 +159,7 @@ public class Espressione {
                     } else if (token instanceof Parentesi) {
                         operatoreUsato = false;
                         if(token.equals(Parentesi.PARENTESI_CHIUSA)){
-                            throw new ExpressionException("Espressione non valida");
+                            throw new ExpressionException("errore nel parser");
                         }
                         validTokensList.add(token);
                         stato = 0;
@@ -171,10 +171,10 @@ public class Espressione {
                         validTokensList.add(token);
                         stato = 1;
                     } else if (token instanceof Frazione) {
-                        throw new ExpressionException("Espressione non valida");
+                        throw new ExpressionException("errore nel parser");
                     } else if (token instanceof Parentesi) {
                         if(token.equals(Parentesi.PARENTESI_APERTA)){
-                            throw new ExpressionException("Espressione non valida");
+                            throw new ExpressionException("errore nel parser");
                         }
                         validTokensList.add(token);
                         stato = 3;
@@ -186,15 +186,20 @@ public class Espressione {
                         validTokensList.add(token);
                         stato = 1;
                     } else if (token instanceof Frazione) {
-                        throw new ExpressionException("Espressione non valida");
+                        validTokensList.add(Operatore.MULT);
+                        validTokensList.add(token);
                     } else if (token instanceof Parentesi) {
-                        throw new ExpressionException("Espressione non valida");
+                        if(token.equals(Parentesi.PARENTESI_APERTA)){
+                            validTokensList.add(Operatore.MULT);
+                            stato = 0;
+                        }
+                        validTokensList.add(token);
                     }
             }
         }
         //non deve terminare con un operatoreUsato (stato 1)
         if (stato == 1)
-            throw new ExpressionException("Espressione non valida");
+            throw new ExpressionException("errore nel parser");
 
         System.out.println(validTokensList);
     }
@@ -226,7 +231,7 @@ public class Espressione {
             if(operatori.peek() instanceof Operatore){
                 output.add(operatori.pop());
             }else{
-                throw new ExpressionException("Syntax error");
+                throw new ExpressionException("errore nello shunting yard");
             }
         }
         rpn = output;
@@ -251,7 +256,7 @@ public class Espressione {
                         case POW -> output.push(n1.pow(n2));
                     }
                 }catch (EmptyStackException e){
-                    throw new ExpressionException("Syntax error");
+                    throw new ExpressionException("errore nel calcolo");
                 }
             }
         }
